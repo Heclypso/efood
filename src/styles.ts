@@ -27,5 +27,6 @@ export const GlobalStyle = createGlobalStyle`
         margin: 0 auto;
         padding-top: 80px;
         padding-bottom: 120px;
+        position: relative;
     }
 `

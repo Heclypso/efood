@@ -21,7 +21,7 @@ const Header = ({ shape }: Props) => (
     <HeaderContainer shape={shape}>
       <ProfileHeaderWrapper shape={shape}>
         {shape === 'profile' && (
-          <Button to="/" value="Restaurantes" background="transparent" />
+          <Button to="/" value="Restaurantes" $background="transparent" />
         )}
         <img src={logo} alt="Logo da efood" />
         {shape === 'profile' && (
