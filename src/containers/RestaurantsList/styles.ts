@@ -9,7 +9,6 @@ export const RestaurantsContainer = styled.div`
 `
 
 export const Card = styled.div`
-  height: 398px;
   display: flex;
   flex-direction: column;
   color: ${colors.tertiaryColor};
@@ -48,5 +47,5 @@ export const DetailsWrapper = styled.div`
 
 export const Description = styled.p`
   font-size: 14px;
-  margin: 16px 0px;
+  margin: 8px 0;
 `

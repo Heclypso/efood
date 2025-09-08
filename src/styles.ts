@@ -5,7 +5,8 @@ export const colors = {
   secondaryColor: '#FFEBD9',
   tertiaryColor: '#E66767',
   textColor: '#FFFFFF',
-  inputTextColor: '#4B4B4B'
+  inputTextColor: '#4B4B4B',
+  overlayColor: 'rgba(0, 0, 0, 0.5)'
 }
 
 export const GlobalStyle = createGlobalStyle`

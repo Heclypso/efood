@@ -79,7 +79,7 @@ const RestaurantsList = () => (
               </S.GradeWrapper>
             </S.CardHeader>
             <S.Description>{restaurant.description}</S.Description>
-            <Button value="Saiba mais" background="orange" />
+            <Button to="/profile" value="Saiba mais" background="orange" />
           </S.DetailsWrapper>
         </S.Card>
       ))}

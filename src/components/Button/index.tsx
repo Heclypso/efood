@@ -2,11 +2,12 @@ import { ButtonElement } from './styles'
 
 export type Props = {
   value: string
-  background: 'orange' | 'beige'
+  background: 'orange' | 'beige' | 'transparent'
+  to: string
 }
 
-const Button = ({ value, background }: Props) => (
-  <ButtonElement to="/" background={background}>
+const Button = ({ value, background, to }: Props) => (
+  <ButtonElement to={to} background={background}>
     {value}
   </ButtonElement>
 )

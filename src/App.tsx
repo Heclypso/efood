@@ -1,15 +1,14 @@
+import { BrowserRouter } from 'react-router-dom'
 import Footer from './components/Footer'
-import Header from './components/Header'
-import RestaurantsList from './containers/RestaurantsList'
 import { GlobalStyle } from './styles'
+import RoutesElement from './routes'
 
 const App = () => (
-  <>
-    <Header />
+  <BrowserRouter>
     <GlobalStyle />
-    <RestaurantsList />
+    <RoutesElement />
     <Footer />
-  </>
+  </BrowserRouter>
 )
 
 export default App
