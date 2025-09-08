@@ -1,10 +1,14 @@
-import React from 'react'
+import Footer from './components/Footer'
+import Header from './components/Header'
+import RestaurantsList from './containers/RestaurantsList'
 import { GlobalStyle } from './styles'
 
 const App = () => (
   <>
-    <div>Olá Mundo</div>
+    <Header />
     <GlobalStyle />
+    <RestaurantsList />
+    <Footer />
   </>
 )
 
