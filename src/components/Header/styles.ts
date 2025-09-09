@@ -37,12 +37,6 @@ export const ProfileHeaderWrapper = styled.div<Props>`
 
 export const ProfileInfoWrapper = styled.div`
   color: ${colors.textColor};
-  background-image:
-    linear-gradient(${colors.overlayColor}, ${colors.overlayColor}),
-    url(${background});
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
 `
 
 export const ProfileInfo = styled.div`

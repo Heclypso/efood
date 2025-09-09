@@ -6,7 +6,8 @@ export const colors = {
   tertiaryColor: '#E66767',
   textColor: '#FFFFFF',
   inputTextColor: '#4B4B4B',
-  overlayColor: 'rgba(0, 0, 0, 0.8)'
+  overlayColor: 'rgba(0, 0, 0, 0.8)',
+  bannerOverlayColor: 'rgba(0, 0, 0, 0.5)'
 }
 
 export const GlobalStyle = createGlobalStyle`

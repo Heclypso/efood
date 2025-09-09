@@ -11,6 +11,7 @@ import {
   toggleShowOverlay,
   toggleShowShoppingCart
 } from '../../store/reducers/shoppingCartReducer'
+import { colors } from '../../styles'
 
 export type Props = {
   shape: 'profile' | 'home'
@@ -26,6 +27,16 @@ const Header = ({ shape }: Props) => {
     dispatch(toggleShowShoppingCart())
     dispatch(toggleShowOverlay())
   }
+
+  const { selectedRestaurant } = useSelector(
+    (state: RootReducer) => state.restaurant
+  )
+
+  const allowedHeadTags = ['Italiana', 'Japonesa']
+
+  const filteredTags = selectedRestaurant.tags.filter((t) =>
+    allowedHeadTags.includes(t)
+  )
 
   return (
     <>
@@ -48,10 +59,15 @@ const Header = ({ shape }: Props) => {
         )}
       </S.HeaderContainer>
       {shape === 'profile' && (
-        <S.ProfileInfoWrapper>
+        <S.ProfileInfoWrapper
+          style={{
+            background: `linear-gradient(${colors.bannerOverlayColor}), url(${selectedRestaurant.image}) no-repeat center center`,
+            backgroundSize: 'cover'
+          }}
+        >
           <S.ProfileInfo>
-            <S.Category>Italiana</S.Category>
-            <S.Name>La Dolce Vita Trattoria</S.Name>
+            <S.Category>{filteredTags}</S.Category>
+            <S.Name>{selectedRestaurant?.name}</S.Name>
           </S.ProfileInfo>
         </S.ProfileInfoWrapper>
       )}

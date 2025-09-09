@@ -16,6 +16,7 @@ export const Card = styled.div`
 
 export const ImageWrapper = styled.div`
   position: relative;
+  height: 217px;
 `
 
 export const Title = styled.h2`
