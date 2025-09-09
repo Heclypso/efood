@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { colors } from '../../styles'
+import { ButtonElement } from '../Button/styles'
 
 export const ShoppingCartAside = styled.aside`
   width: 360px;
@@ -62,4 +63,47 @@ export const ShoppingCartFooterWrapper = styled.div`
   font-weight: 700;
   color: ${colors.secondaryColor};
   margin-top: 24px;
+`
+
+export const Form = styled.form`
+  margin-bottom: 24px;
+  font-size: 14px;
+  font-weight: bold;
+
+  ${ButtonElement} {
+    width: 100%;
+
+    &:first-of-type {
+      margin-top: 16px;
+      margin-bottom: 8px;
+    }
+  }
+`
+
+export const Title = styled.h2`
+  font-size: 16px;
+  color: ${colors.secondaryColor};
+  font-weight: bold;
+  margin-bottom: 16px;
+`
+
+export const Label = styled.label`
+  color: ${colors.secondaryColor};
+`
+
+export const Input = styled.input`
+  font-weight: bold;
+  height: 32px;
+  width: 100%;
+  border: none;
+  background-color: ${colors.secondaryColor};
+  color: ${colors.inputTextColor};
+  margin: 8px 0px;
+  padding: 8px;
+`
+
+export const InputWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  gap: 34px;
 `

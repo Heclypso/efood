@@ -14,6 +14,10 @@ export const Card = styled.div`
   color: ${colors.tertiaryColor};
 `
 
+export const ImageWrapper = styled.div`
+  position: relative;
+`
+
 export const Title = styled.h2`
   font-size: 18px;
 `
