@@ -4,11 +4,15 @@ import Product from '../../models/Product'
 type ShoppingCartState = {
   items: Product[]
   showOverlay: boolean
+  showShoppingCart: boolean
+  showProductModal: boolean
 }
 
 const initialState: ShoppingCartState = {
   items: [],
-  showOverlay: false
+  showOverlay: false,
+  showShoppingCart: false,
+  showProductModal: false
 }
 
 const shoppingCartSlice = createSlice({
@@ -20,10 +24,20 @@ const shoppingCartSlice = createSlice({
     },
     toggleShowOverlay: (state) => {
       state.showOverlay = !state.showOverlay
+    },
+    toggleShowShoppingCart: (state) => {
+      state.showShoppingCart = !state.showShoppingCart
+    },
+    toggleShowProductModal: (state) => {
+      state.showProductModal = !state.showProductModal
     }
   }
 })
 
-export const { addToShoppingCart, toggleShowOverlay } =
-  shoppingCartSlice.actions
+export const {
+  addToShoppingCart,
+  toggleShowOverlay,
+  toggleShowShoppingCart,
+  toggleShowProductModal
+} = shoppingCartSlice.actions
 export default shoppingCartSlice.reducer

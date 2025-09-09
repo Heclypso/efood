@@ -22,6 +22,7 @@ export const ShoppingCart = styled.span`
   font-weight: 900;
   color: ${colors.tertiaryColor};
   width: 199px;
+  cursor: pointer;
 `
 
 export const ProfileHeaderWrapper = styled.div<Props>`

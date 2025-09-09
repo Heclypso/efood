@@ -1,31 +1,22 @@
+import { useDispatch, useSelector } from 'react-redux'
 import { useState } from 'react'
-import {
-  CloseModal,
-  Description,
-  Modal,
-  ModalContainer,
-  ModalImage,
-  Name,
-  Product,
-  ProductsContainer
-} from './styles'
 
-type Product = {
-  id: number
-  image: string
-  name: string
-  description: string
-  expandedDescription: string
-}
+import * as S from './styles'
+
+import ProductClass from '../../models/Product'
 
 import margerita from '../../assets/images/pizza-marguerita.png'
 import closeIcon from '../../assets/icons/close.svg'
 
 import Button from '../../components/Button'
-import { useDispatch } from 'react-redux'
-import { toggleShowOverlay } from '../../store/reducers/shoppingCartReducer'
+import {
+  addToShoppingCart,
+  toggleShowOverlay,
+  toggleShowProductModal
+} from '../../store/reducers/shoppingCartReducer'
+import { RootReducer } from '../../store'
 
-const products: Product[] = [
+const products: ProductClass[] = [
   {
     id: 1,
     image: margerita,
@@ -33,7 +24,9 @@ const products: Product[] = [
     description:
       'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
     expandedDescription:
-      'A pizza Margherita é uma pizza clássica da culinária italiana, reconhecida por sua simplicidade e sabor inigualável. Ela é feita com uma base de massa fina e crocante, coberta com molho de tomate fresco, queijo mussarela de alta qualidade, manjericão fresco e azeite de oliva extra-virgem. A combinação de sabores é perfeita, com o molho de tomate suculento e ligeiramente ácido, o queijo derretido e cremoso e as folhas de manjericão frescas, que adicionam um toque de sabor herbáceo. É uma pizza simples, mas deliciosa, que agrada a todos os paladares e é uma ótima opção para qualquer ocasião. \n\nServe: de 2 a 3 pessoas'
+      'A pizza Margherita é uma pizza clássica da culinária italiana, reconhecida por sua simplicidade e sabor inigualável. Ela é feita com uma base de massa fina e crocante, coberta com molho de tomate fresco, queijo mussarela de alta qualidade, manjericão fresco e azeite de oliva extra-virgem. A combinação de sabores é perfeita, com o molho de tomate suculento e ligeiramente ácido, o queijo derretido e cremoso e as folhas de manjericão frescas, que adicionam um toque de sabor herbáceo. É uma pizza simples, mas deliciosa, que agrada a todos os paladares e é uma ótima opção para qualquer ocasião. \n\nServe: de 2 a 3 pessoas',
+    price: 'R$ 60,90',
+    grade: 5
   },
   {
     id: 2,
@@ -42,7 +35,9 @@ const products: Product[] = [
     description:
       'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
     expandedDescription:
-      'A pizza Margherita é uma pizza clássica da culinária italiana, reconhecida por sua simplicidade e sabor inigualável. Ela é feita com uma base de massa fina e crocante, coberta com molho de tomate fresco, queijo mussarela de alta qualidade, manjericão fresco e azeite de oliva extra-virgem. A combinação de sabores é perfeita, com o molho de tomate suculento e ligeiramente ácido, o queijo derretido e cremoso e as folhas de manjericão frescas, que adicionam um toque de sabor herbáceo. É uma pizza simples, mas deliciosa, que agrada a todos os paladares e é uma ótima opção para qualquer ocasião. \n\nServe: de 2 a 3 pessoas'
+      'A pizza Margherita é uma pizza clássica da culinária italiana, reconhecida por sua simplicidade e sabor inigualável. Ela é feita com uma base de massa fina e crocante, coberta com molho de tomate fresco, queijo mussarela de alta qualidade, manjericão fresco e azeite de oliva extra-virgem. A combinação de sabores é perfeita, com o molho de tomate suculento e ligeiramente ácido, o queijo derretido e cremoso e as folhas de manjericão frescas, que adicionam um toque de sabor herbáceo. É uma pizza simples, mas deliciosa, que agrada a todos os paladares e é uma ótima opção para qualquer ocasião. \n\nServe: de 2 a 3 pessoas',
+    price: 'R$ 60,90',
+    grade: 4
   },
   {
     id: 3,
@@ -51,7 +46,9 @@ const products: Product[] = [
     description:
       'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
     expandedDescription:
-      'A pizza Margherita é uma pizza clássica da culinária italiana, reconhecida por sua simplicidade e sabor inigualável. Ela é feita com uma base de massa fina e crocante, coberta com molho de tomate fresco, queijo mussarela de alta qualidade, manjericão fresco e azeite de oliva extra-virgem. A combinação de sabores é perfeita, com o molho de tomate suculento e ligeiramente ácido, o queijo derretido e cremoso e as folhas de manjericão frescas, que adicionam um toque de sabor herbáceo. É uma pizza simples, mas deliciosa, que agrada a todos os paladares e é uma ótima opção para qualquer ocasião. \n\nServe: de 2 a 3 pessoas'
+      'A pizza Margherita é uma pizza clássica da culinária italiana, reconhecida por sua simplicidade e sabor inigualável. Ela é feita com uma base de massa fina e crocante, coberta com molho de tomate fresco, queijo mussarela de alta qualidade, manjericão fresco e azeite de oliva extra-virgem. A combinação de sabores é perfeita, com o molho de tomate suculento e ligeiramente ácido, o queijo derretido e cremoso e as folhas de manjericão frescas, que adicionam um toque de sabor herbáceo. É uma pizza simples, mas deliciosa, que agrada a todos os paladares e é uma ótima opção para qualquer ocasião. \n\nServe: de 2 a 3 pessoas',
+    price: 'R$ 60,90',
+    grade: 4
   },
   {
     id: 4,
@@ -60,7 +57,9 @@ const products: Product[] = [
     description:
       'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
     expandedDescription:
-      'A pizza Margherita é uma pizza clássica da culinária italiana, reconhecida por sua simplicidade e sabor inigualável. Ela é feita com uma base de massa fina e crocante, coberta com molho de tomate fresco, queijo mussarela de alta qualidade, manjericão fresco e azeite de oliva extra-virgem. A combinação de sabores é perfeita, com o molho de tomate suculento e ligeiramente ácido, o queijo derretido e cremoso e as folhas de manjericão frescas, que adicionam um toque de sabor herbáceo. É uma pizza simples, mas deliciosa, que agrada a todos os paladares e é uma ótima opção para qualquer ocasião. \n\nServe: de 2 a 3 pessoas'
+      'A pizza Margherita é uma pizza clássica da culinária italiana, reconhecida por sua simplicidade e sabor inigualável. Ela é feita com uma base de massa fina e crocante, coberta com molho de tomate fresco, queijo mussarela de alta qualidade, manjericão fresco e azeite de oliva extra-virgem. A combinação de sabores é perfeita, com o molho de tomate suculento e ligeiramente ácido, o queijo derretido e cremoso e as folhas de manjericão frescas, que adicionam um toque de sabor herbáceo. É uma pizza simples, mas deliciosa, que agrada a todos os paladares e é uma ótima opção para qualquer ocasião. \n\nServe: de 2 a 3 pessoas',
+    price: 'R$ 60,90',
+    grade: 4
   },
   {
     id: 5,
@@ -69,7 +68,9 @@ const products: Product[] = [
     description:
       'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
     expandedDescription:
-      'A pizza Margherita é uma pizza clássica da culinária italiana, reconhecida por sua simplicidade e sabor inigualável. Ela é feita com uma base de massa fina e crocante, coberta com molho de tomate fresco, queijo mussarela de alta qualidade, manjericão fresco e azeite de oliva extra-virgem. A combinação de sabores é perfeita, com o molho de tomate suculento e ligeiramente ácido, o queijo derretido e cremoso e as folhas de manjericão frescas, que adicionam um toque de sabor herbáceo. É uma pizza simples, mas deliciosa, que agrada a todos os paladares e é uma ótima opção para qualquer ocasião. \n\n Serve: de 2 a 3 pessoas'
+      'A pizza Margherita é uma pizza clássica da culinária italiana, reconhecida por sua simplicidade e sabor inigualável. Ela é feita com uma base de massa fina e crocante, coberta com molho de tomate fresco, queijo mussarela de alta qualidade, manjericão fresco e azeite de oliva extra-virgem. A combinação de sabores é perfeita, com o molho de tomate suculento e ligeiramente ácido, o queijo derretido e cremoso e as folhas de manjericão frescas, que adicionam um toque de sabor herbáceo. É uma pizza simples, mas deliciosa, que agrada a todos os paladares e é uma ótima opção para qualquer ocasião. \n\nServe: de 2 a 3 pessoas',
+    price: 'R$ 60,90',
+    grade: 4
   },
   {
     id: 6,
@@ -78,32 +79,51 @@ const products: Product[] = [
     description:
       'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
     expandedDescription:
-      'A pizza Margherita é uma pizza clássica da culinária italiana, reconhecida por sua simplicidade e sabor inigualável. Ela é feita com uma base de massa fina e crocante, coberta com molho de tomate fresco, queijo mussarela de alta qualidade, manjericão fresco e azeite de oliva extra-virgem. A combinação de sabores é perfeita, com o molho de tomate suculento e ligeiramente ácido, o queijo derretido e cremoso e as folhas de manjericão frescas, que adicionam um toque de sabor herbáceo. É uma pizza simples, mas deliciosa, que agrada a todos os paladares e é uma ótima opção para qualquer ocasião. \n\n Serve: de 2 a 3 pessoas'
+      'A pizza Margherita é uma pizza clássica da culinária italiana, reconhecida por sua simplicidade e sabor inigualável. Ela é feita com uma base de massa fina e crocante, coberta com molho de tomate fresco, queijo mussarela de alta qualidade, manjericão fresco e azeite de oliva extra-virgem. A combinação de sabores é perfeita, com o molho de tomate suculento e ligeiramente ácido, o queijo derretido e cremoso e as folhas de manjericão frescas, que adicionam um toque de sabor herbáceo. É uma pizza simples, mas deliciosa, que agrada a todos os paladares e é uma ótima opção para qualquer ocasião. \n\nServe: de 2 a 3 pessoas',
+    price: 'R$ 60,90',
+    grade: 4
   }
 ]
 
 const ProductsList = () => {
-  const [showModal, setShowModal] = useState(false)
-  const [selectedProduct, setSelectedProduct] = useState<Product>()
+  const { showProductModal } = useSelector(
+    (state: RootReducer) => state.shoppingCart
+  )
+  const [selectedProduct, setSelectedProduct] = useState<ProductClass>()
 
-  const price = 'R$ 60,90'
-  const priceText = `Adicionar ao carrinho - ${price}`
+  const priceText = `Adicionar ao carrinho - ${selectedProduct?.price}`
 
   const dispatch = useDispatch()
 
   const modalHandler = () => {
-    setShowModal((prev) => !prev)
+    dispatch(toggleShowProductModal())
     dispatch(toggleShowOverlay())
+  }
+
+  const shoppingCartHandler = () => {
+    if (!selectedProduct) return
+
+    dispatch(
+      addToShoppingCart({
+        id: selectedProduct?.id,
+        image: selectedProduct?.image,
+        name: selectedProduct?.name,
+        description: selectedProduct?.description,
+        expandedDescription: selectedProduct?.description,
+        price: selectedProduct?.price,
+        grade: selectedProduct?.grade
+      })
+    )
   }
 
   return (
     <div className="container">
-      <ProductsContainer>
+      <S.ProductsContainer>
         {products.map((product) => (
-          <Product key={product.id}>
+          <S.Product key={product.id}>
             <img src={product.image} alt="Imagem do produto" />
-            <Name>{product.name}</Name>
-            <Description>{product.description}</Description>
+            <S.Name>{product.name}</S.Name>
+            <S.Description>{product.description}</S.Description>
             <Button
               onClick={() => {
                 setSelectedProduct({
@@ -111,36 +131,46 @@ const ProductsList = () => {
                   image: product.image,
                   name: product.name,
                   description: product.description,
-                  expandedDescription: product.expandedDescription
+                  expandedDescription: product.expandedDescription,
+                  price: product.price,
+                  grade: product.grade
                 })
                 modalHandler()
               }}
               value="Mais detalhes"
               $background="beige"
             />
-          </Product>
+          </S.Product>
         ))}
-        {showModal && (
-          <Modal>
-            <ModalImage src={selectedProduct?.image} alt="Imagem do produto" />
-            <ModalContainer>
-              <CloseModal
+        {showProductModal && (
+          <S.Modal>
+            <S.ModalImage
+              src={selectedProduct?.image}
+              alt="Imagem do produto"
+            />
+            <S.ModalContainer>
+              <S.CloseModal
                 onClick={() => modalHandler()}
                 src={closeIcon}
                 alt="Ícone de fechar"
               />
-              <Name>{selectedProduct?.name}</Name>
-              <Description>{selectedProduct?.expandedDescription}</Description>
+              <S.Name>{selectedProduct?.name}</S.Name>
+              <S.Description>
+                {selectedProduct?.expandedDescription}
+              </S.Description>
 
               <Button
-                onClick={() => modalHandler()}
+                onClick={() => {
+                  modalHandler()
+                  shoppingCartHandler()
+                }}
                 value={priceText}
                 $background="beige"
               />
-            </ModalContainer>
-          </Modal>
+            </S.ModalContainer>
+          </S.Modal>
         )}
-      </ProductsContainer>
+      </S.ProductsContainer>
     </div>
   )
 }
