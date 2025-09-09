@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { colors } from '../../styles'
+import { ButtonElement } from '../../components/Button/styles'
 
 export const ProductsContainer = styled.div`
   display: grid;
@@ -39,6 +40,16 @@ export const Modal = styled.div`
   left: 0;
   margin-top: 80px;
   z-index: 2;
+
+  ${ButtonElement} {
+    align-self: flex-start;
+  }
+`
+
+export const CloseModal = styled.img`
+  position: absolute;
+  top: 8px;
+  right: 8px;
 `
 
 export const ModalImage = styled.img`

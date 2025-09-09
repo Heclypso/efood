@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import {
+  CloseModal,
   Description,
   Modal,
   ModalContainer,
@@ -18,7 +19,11 @@ type Product = {
 }
 
 import margerita from '../../assets/images/pizza-marguerita.png'
+import closeIcon from '../../assets/icons/close.svg'
+
 import Button from '../../components/Button'
+import { useDispatch } from 'react-redux'
+import { toggleShowOverlay } from '../../store/reducers/shoppingCartReducer'
 
 const products: Product[] = [
   {
@@ -84,6 +89,13 @@ const ProductsList = () => {
   const price = 'R$ 60,90'
   const priceText = `Adicionar ao carrinho - ${price}`
 
+  const dispatch = useDispatch()
+
+  const modalHandler = () => {
+    setShowModal((prev) => !prev)
+    dispatch(toggleShowOverlay())
+  }
+
   return (
     <div className="container">
       <ProductsContainer>
@@ -94,7 +106,6 @@ const ProductsList = () => {
             <Description>{product.description}</Description>
             <Button
               onClick={() => {
-                setShowModal((prev) => !prev)
                 setSelectedProduct({
                   id: product.id,
                   image: product.image,
@@ -102,24 +113,34 @@ const ProductsList = () => {
                   description: product.description,
                   expandedDescription: product.expandedDescription
                 })
+                modalHandler()
               }}
               value="Mais detalhes"
               $background="beige"
             />
           </Product>
         ))}
-      </ProductsContainer>
-      {showModal && (
-        <Modal>
-          <ModalImage src={selectedProduct?.image} alt="Imagem do produto" />
-          <ModalContainer>
-            <Name>{selectedProduct?.name}</Name>
-            <Description>{selectedProduct?.expandedDescription}</Description>
+        {showModal && (
+          <Modal>
+            <ModalImage src={selectedProduct?.image} alt="Imagem do produto" />
+            <ModalContainer>
+              <CloseModal
+                onClick={() => modalHandler()}
+                src={closeIcon}
+                alt="Ícone de fechar"
+              />
+              <Name>{selectedProduct?.name}</Name>
+              <Description>{selectedProduct?.expandedDescription}</Description>
 
-            <Button value={priceText} $background="beige" />
-          </ModalContainer>
-        </Modal>
-      )}
+              <Button
+                onClick={() => modalHandler()}
+                value={priceText}
+                $background="beige"
+              />
+            </ModalContainer>
+          </Modal>
+        )}
+      </ProductsContainer>
     </div>
   )
 }
