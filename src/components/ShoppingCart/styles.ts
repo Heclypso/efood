@@ -3,9 +3,9 @@ import { colors } from '../../styles'
 
 export const ShoppingCartAside = styled.aside`
   width: 360px;
-  height: 100%;
+  min-height: 100%;
   background-color: ${colors.tertiaryColor};
-  padding: 32px 8px 0px 8px;
+  padding: 32px 8px 8px 8px;
   position: absolute;
   top: 0;
   right: 0;
@@ -19,6 +19,7 @@ export const ShoppingCartItem = styled.div`
   gap: 8px;
   padding: 8px;
   position: relative;
+  margin-bottom: 16px;
 `
 
 export const Image = styled.img`
@@ -45,4 +46,20 @@ export const DeleteIcon = styled.img`
   position: absolute;
   bottom: 8px;
   right: 8px;
+`
+
+export const ShoppingCartFooter = styled.footer`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+`
+
+export const ShoppingCartFooterWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  font-weight: 700;
+  color: ${colors.secondaryColor};
+  margin-top: 24px;
 `
