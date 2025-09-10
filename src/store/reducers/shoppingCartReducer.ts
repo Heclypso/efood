@@ -35,6 +35,9 @@ const shoppingCartSlice = createSlice({
       const index = state.items.findIndex((i) => i.id === action.payload)
 
       state.items.splice(index, 1)
+    },
+    deleteAllShoppingCartItem: (state) => {
+      state.items = []
     }
   }
 })
@@ -44,6 +47,7 @@ export const {
   toggleShowOverlay,
   toggleShowShoppingCart,
   toggleShowProductModal,
-  deleteShoppingCartItem
+  deleteShoppingCartItem,
+  deleteAllShoppingCartItem
 } = shoppingCartSlice.actions
 export default shoppingCartSlice.reducer

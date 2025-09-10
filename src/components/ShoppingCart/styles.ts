@@ -107,3 +107,24 @@ export const InputWrapper = styled.div`
   justify-content: space-between;
   gap: 34px;
 `
+
+export const Sucess = styled.div`
+  color: ${colors.secondaryColor};
+
+  ${ButtonElement} {
+    width: 100%;
+  }
+`
+
+export const SucessTitle = styled.h2`
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 16px;
+`
+
+export const SucessText = styled.p`
+  font-size: 14px;
+  line-height: 22px;
+  margin-bottom: 24px;
+  white-space: pre-line;
+`
