@@ -29,6 +29,13 @@ const RestaurantsList = () => {
     )
   }
 
+  const formatDescription = (description: string) => {
+    if (description.length > 248) {
+      return description.slice(0, 248) + '...'
+    }
+    return description
+  }
+
   return (
     <div className="container">
       <S.RestaurantsContainer>
@@ -52,7 +59,9 @@ const RestaurantsList = () => {
                   />
                 </S.GradeWrapper>
               </S.CardHeader>
-              <S.Description>{restaurant.description}</S.Description>
+              <S.Description>
+                {formatDescription(restaurant.description)}
+              </S.Description>
               <Button to="/profile" value="Saiba mais" $background="orange" />
             </S.DetailsWrapper>
           </S.Card>

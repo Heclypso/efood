@@ -63,6 +63,13 @@ const ProductsList = () => {
     })
   }
 
+  const formatDescription = (description: string) => {
+    if (description.length > 132) {
+      return description.slice(0, 132) + '...'
+    }
+    return description
+  }
+
   return (
     <div className="container">
       <S.ProductsContainer>
@@ -70,7 +77,9 @@ const ProductsList = () => {
           <S.Product key={product.id}>
             <img src={product.image} alt="Imagem do produto" />
             <S.Name>{product.name}</S.Name>
-            <S.Description>{product.description}</S.Description>
+            <S.Description>
+              {formatDescription(product.description)}
+            </S.Description>
             <Button
               onClick={() => {
                 selectProduct(product)

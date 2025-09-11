@@ -52,5 +52,6 @@ export const DetailsWrapper = styled.div`
 
 export const Description = styled.p`
   font-size: 14px;
-  margin: 8px 0;
+  margin: 16px 0;
+  line-height: 22px;
 `
