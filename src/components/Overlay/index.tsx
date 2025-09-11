@@ -1,5 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'
+
 import { OverlayElement } from './styles'
+
 import {
   toggleShowOverlay,
   toggleShowProductModal,

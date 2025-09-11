@@ -1,17 +1,19 @@
 import { useDispatch, useSelector } from 'react-redux'
 
 import * as S from './styles'
+import { colors } from '../../styles'
 
 import ShoppingCartElement from '../ShoppingCart'
 
 import logo from '../../assets/images/logo.png'
+
 import Button from '../Button'
+
 import { RootReducer } from '../../store'
 import {
   toggleShowOverlay,
   toggleShowShoppingCart
 } from '../../store/reducers/shoppingCartReducer'
-import { colors } from '../../styles'
 
 export type Props = {
   shape: 'profile' | 'home'

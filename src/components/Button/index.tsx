@@ -1,5 +1,6 @@
-import { ButtonElement } from './styles'
 import { Link } from 'react-router-dom'
+
+import { ButtonElement } from './styles'
 
 export type Props = {
   value: string

@@ -1,14 +1,14 @@
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+
+import * as S from './styles'
+
 import {
   deleteAllShoppingCartItem,
   deleteShoppingCartItem,
   toggleShowOverlay,
   toggleShowShoppingCart
 } from '../../store/reducers/shoppingCartReducer'
-
-import * as S from './styles'
-
 import { RootReducer } from '../../store'
 
 import trashCam from '../../assets/icons/lixeira-de-reciclagem.svg'

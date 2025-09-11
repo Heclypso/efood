@@ -16,6 +16,10 @@ import {
 import { RootReducer } from '../../store'
 
 const ProductsList = () => {
+  const [selectedProduct, setSelectedProduct] = useState<ProductClass>()
+
+  const priceText = `Adicionar ao carrinho - ${selectedProduct?.price}`
+
   const { products } = useSelector(
     (state: RootReducer) => state.restaurant.selectedRestaurant
   )
@@ -23,9 +27,6 @@ const ProductsList = () => {
   const { showProductModal } = useSelector(
     (state: RootReducer) => state.shoppingCart
   )
-  const [selectedProduct, setSelectedProduct] = useState<ProductClass>()
-
-  const priceText = `Adicionar ao carrinho - ${selectedProduct?.price}`
 
   const dispatch = useDispatch()
 
@@ -50,6 +51,18 @@ const ProductsList = () => {
     )
   }
 
+  const selectProduct = (product: ProductClass) => {
+    setSelectedProduct({
+      id: product.id,
+      image: product.image,
+      name: product.name,
+      description: product.description,
+      expandedDescription: product.expandedDescription,
+      price: product.price,
+      grade: product.grade
+    })
+  }
+
   return (
     <div className="container">
       <S.ProductsContainer>
@@ -60,15 +73,7 @@ const ProductsList = () => {
             <S.Description>{product.description}</S.Description>
             <Button
               onClick={() => {
-                setSelectedProduct({
-                  id: product.id,
-                  image: product.image,
-                  name: product.name,
-                  description: product.description,
-                  expandedDescription: product.expandedDescription,
-                  price: product.price,
-                  grade: product.grade
-                })
+                selectProduct(product)
                 modalHandler()
               }}
               value="Mais detalhes"

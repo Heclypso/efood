@@ -3,8 +3,6 @@ import { colors } from '../../styles'
 
 import pattern from '../../assets/images/pattern.png'
 
-import background from '../../assets/images/la-dolce-vita-trattoria.png'
-
 import { Props } from '.'
 
 export const HeaderContainer = styled.header<Props>`
