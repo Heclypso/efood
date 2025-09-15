@@ -1,9 +1,7 @@
-import { useDispatch, useSelector } from 'react-redux'
 import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
 import * as S from './styles'
-
-import ProductClass from '../../models/Product'
 
 import closeIcon from '../../assets/icons/close.svg'
 
@@ -15,14 +13,35 @@ import {
 } from '../../store/reducers/shoppingCartReducer'
 import { RootReducer } from '../../store'
 
-const ProductsList = () => {
-  const [selectedProduct, setSelectedProduct] = useState<ProductClass>()
+export type Product = {
+  foto: string
+  preco: number
+  id: number
+  nome: string
+  descricao: string
+  porcao: string
+}
 
-  const priceText = `Adicionar ao carrinho - ${selectedProduct?.price}`
+type Props = {
+  products: Product[]
+}
 
-  const { products } = useSelector(
-    (state: RootReducer) => state.restaurant.selectedRestaurant
-  )
+const ProductsList = ({ products }: Props) => {
+  const [selectedProduct, setSelectedProduct] = useState<Product>()
+
+  const formatDescription = (description: string) => {
+    if (description.length > 129) {
+      return description.slice(0, 129) + '...'
+    }
+    return description
+  }
+
+  const formatPrice = (price: number) => {
+    return new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL'
+    }).format(price)
+  }
 
   const { showProductModal } = useSelector(
     (state: RootReducer) => state.shoppingCart
@@ -35,39 +54,17 @@ const ProductsList = () => {
     dispatch(toggleShowOverlay())
   }
 
-  const shoppingCartHandler = () => {
-    if (!selectedProduct) return
-
+  const shoppingCartHandler = (product: Product) => {
     dispatch(
       addToShoppingCart({
-        id: selectedProduct?.id,
-        image: selectedProduct?.image,
-        name: selectedProduct?.name,
-        description: selectedProduct?.description,
-        expandedDescription: selectedProduct?.description,
-        price: selectedProduct?.price,
-        grade: selectedProduct?.grade
+        id: product?.id,
+        foto: product?.foto,
+        nome: product?.nome,
+        descricao: product?.descricao,
+        preco: formatPrice(product.preco),
+        porcao: product?.porcao
       })
     )
-  }
-
-  const selectProduct = (product: ProductClass) => {
-    setSelectedProduct({
-      id: product.id,
-      image: product.image,
-      name: product.name,
-      description: product.description,
-      expandedDescription: product.expandedDescription,
-      price: product.price,
-      grade: product.grade
-    })
-  }
-
-  const formatDescription = (description: string) => {
-    if (description.length > 132) {
-      return description.slice(0, 132) + '...'
-    }
-    return description
   }
 
   return (
@@ -75,44 +72,42 @@ const ProductsList = () => {
       <S.ProductsContainer>
         {products.map((product) => (
           <S.Product key={product.id}>
-            <img src={product.image} alt="Imagem do produto" />
-            <S.Name>{product.name}</S.Name>
+            <img src={product.foto} alt="Imagem do produto" />
+            <S.Name>{product.nome}</S.Name>
             <S.Description>
-              {formatDescription(product.description)}
+              {formatDescription(product.descricao)}
             </S.Description>
             <Button
               onClick={() => {
-                selectProduct(product)
                 modalHandler()
+                setSelectedProduct(product)
               }}
               value="Mais detalhes"
               $background="beige"
             />
           </S.Product>
         ))}
-        {showProductModal && (
+        {showProductModal && selectedProduct && (
           <S.Modal>
-            <S.ModalImage
-              src={selectedProduct?.image}
-              alt="Imagem do produto"
-            />
+            <S.ModalImage src={selectedProduct?.foto} alt="Imagem do produto" />
             <S.ModalContainer>
               <S.CloseModal
                 onClick={() => modalHandler()}
                 src={closeIcon}
                 alt="Ícone de fechar"
               />
-              <S.Name>{selectedProduct?.name}</S.Name>
+              <S.Name>{selectedProduct?.nome}</S.Name>
               <S.Description>
-                {selectedProduct?.expandedDescription}
+                {selectedProduct?.descricao +
+                  `\n\n Serve: de ${selectedProduct.porcao}`}
               </S.Description>
 
               <Button
                 onClick={() => {
                   modalHandler()
-                  shoppingCartHandler()
+                  shoppingCartHandler(selectedProduct)
                 }}
-                value={priceText}
+                value={`Adicionar ao carrinho - ${formatPrice(selectedProduct?.preco)}`}
                 $background="beige"
               />
             </S.ModalContainer>

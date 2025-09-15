@@ -21,7 +21,7 @@ const ShoppingCart = () => {
 
   const total = items.reduce(
     (acc, item) =>
-      acc + Number(item.price.replace(/[^\d,.,-]/g, '').replace(',', '.')),
+      acc + Number(item.preco.replace(/[^\d,.,-]/g, '').replace(',', '.')),
     0
   )
 
@@ -132,22 +132,24 @@ const ShoppingCart = () => {
       {showShoppingCart && (
         <>
           {showShoppingCart && items.length === 0 && (
-            <S.Title>Carrinho vazio, adicione algum item.</S.Title>
+            <S.Title>Carrinho vazio, adicione um item.</S.Title>
           )}
-          {items.map((item, index) => (
-            <S.ShoppingCartItem key={`${item.id}-${index}`}>
-              <S.Image src={item.image} alt="Imagem do produto" />
-              <div>
-                <S.Name>{item.name}</S.Name>
-                <S.Price>{item.price}</S.Price>
-              </div>
-              <S.DeleteIcon
-                onClick={() => dispatch(deleteShoppingCartItem(item.id))}
-                src={trashCam}
-                alt="Icone de excluir o produto"
-              />
-            </S.ShoppingCartItem>
-          ))}
+          <ul>
+            {items.map((item, index) => (
+              <S.ShoppingCartItem key={`${item.id}-${index}`}>
+                <S.Image src={item.foto} alt="Imagem do produto" />
+                <div>
+                  <S.Name>{item.nome}</S.Name>
+                  <S.Price>{item.preco}</S.Price>
+                </div>
+                <S.DeleteIcon
+                  onClick={() => dispatch(deleteShoppingCartItem(item.id))}
+                  src={trashCam}
+                  alt="Icone de excluir o produto"
+                />
+              </S.ShoppingCartItem>
+            ))}
+          </ul>
 
           {items.length != 0 && (
             <S.ShoppingCartFooter>

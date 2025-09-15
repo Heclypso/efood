@@ -15,6 +15,14 @@ export const Product = styled.div`
   display: flex;
   flex-direction: column;
   gap: 8px;
+  border-radius: 8px;
+
+  img {
+    border-radius: 8px;
+    width: 100%;
+    height: 167px;
+    object-fit: cover;
+  }
 `
 
 export const Name = styled.h2`

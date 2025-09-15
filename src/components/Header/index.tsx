@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
 import * as S from './styles'
@@ -14,31 +16,35 @@ import {
   toggleShowOverlay,
   toggleShowShoppingCart
 } from '../../store/reducers/shoppingCartReducer'
+import { Restaurants } from '../../pages/Home'
 
 export type Props = {
   shape: 'profile' | 'home'
 }
 
 const Header = ({ shape }: Props) => {
+  const { id } = useParams()
+
+  const [restaurant, setRestaurant] = useState<Restaurants>()
+
   const { items, showShoppingCart } = useSelector(
     (state: RootReducer) => state.shoppingCart
   )
+
+  useEffect(() => {
+    if (id != undefined) {
+      fetch(`https://ebac-fake-api.vercel.app/api/efood/restaurantes/${id}`)
+        .then((res) => res.json())
+        .then((res) => setRestaurant(res))
+    }
+  }, [id])
+
   const dispatch = useDispatch()
 
   const shoppingCartHandler = () => {
     dispatch(toggleShowShoppingCart())
     dispatch(toggleShowOverlay())
   }
-
-  const { selectedRestaurant } = useSelector(
-    (state: RootReducer) => state.restaurant
-  )
-
-  const allowedHeadTags = ['Italiana', 'Japonesa']
-
-  const filteredTags = selectedRestaurant.tags.filter((t) =>
-    allowedHeadTags.includes(t)
-  )
 
   return (
     <>
@@ -63,13 +69,12 @@ const Header = ({ shape }: Props) => {
       {shape === 'profile' && (
         <S.ProfileInfoWrapper
           style={{
-            background: `linear-gradient(${colors.bannerOverlayColor}), url(${selectedRestaurant.image}) no-repeat center center`,
-            backgroundSize: 'cover'
+            background: `linear-gradient(${colors.bannerOverlayColor}), url(${restaurant?.capa}) no-repeat center center / cover`
           }}
         >
           <S.ProfileInfo>
-            <S.Category>{filteredTags}</S.Category>
-            <S.Name>{selectedRestaurant?.name}</S.Name>
+            <S.Category>{restaurant?.tipo}</S.Category>
+            <S.Name>{restaurant?.titulo}</S.Name>
           </S.ProfileInfo>
         </S.ProfileInfoWrapper>
       )}

@@ -17,6 +17,12 @@ export const Card = styled.div`
 export const ImageWrapper = styled.div`
   position: relative;
   height: 217px;
+
+  > img {
+    width: 100%;
+    height: 217px;
+    object-fit: cover;
+  }
 `
 
 export const Title = styled.h2`
@@ -52,6 +58,6 @@ export const DetailsWrapper = styled.div`
 
 export const Description = styled.p`
   font-size: 14px;
-  margin: 16px 0;
   line-height: 22px;
+  margin: 16px 0;
 `

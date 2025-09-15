@@ -4,16 +4,20 @@ import { ButtonElement } from '../Button/styles'
 
 export const ShoppingCartAside = styled.aside`
   width: 360px;
-  min-height: 100%;
+  height: 100%;
   background-color: ${colors.tertiaryColor};
   padding: 32px 8px 8px 8px;
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 0;
   z-index: 1;
+
+  > h2 {
+    text-align: center;
+  }
 `
 
-export const ShoppingCartItem = styled.div`
+export const ShoppingCartItem = styled.li`
   height: 100px;
   background-color: ${colors.secondaryColor};
   display: flex;
