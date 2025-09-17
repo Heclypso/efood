@@ -69,15 +69,15 @@ const ShoppingCart = () => {
         .min(16, 'O número do cartão deve ter 16 digitos')
         .max(16, 'O número do cartão deve ter 16 digitos')
         .required('O campo é obrigatório.'),
-      cvv: Yup.string()
+      code: Yup.string()
         .min(3, 'O campo deve conter 3 caracteres')
         .max(3, 'O campo deve conter 3 caracteres')
         .required('O campo é obrigatório.'),
-      dueMonth: Yup.string()
+      month: Yup.string()
         .min(2, 'O campo deve conter 2 caracteres')
         .max(2, 'O campo deve conter 2 caracteres')
         .required('O campo é obrigatório.'),
-      dueYear: Yup.string()
+      year: Yup.string()
         .min(4, 'O campo deve conter 4 caracteres')
         .max(4, 'O campo deve conter 4 caracteres')
         .required('O campo é obrigatório.')
