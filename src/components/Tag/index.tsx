@@ -1,15 +1,15 @@
-import { TagContainer, TagElement } from './styles'
+import * as S from './styles'
 
 type Props = {
   tags: string[]
 }
 
 const Tag = ({ tags }: Props) => (
-  <TagContainer>
+  <S.TagContainer>
     {tags.map((tag, index) => (
-      <TagElement key={`${tag}+${index}`}>{tag}</TagElement>
+      <S.TagElement key={`${tag}+${index}`}>{tag}</S.TagElement>
     ))}
-  </TagContainer>
+  </S.TagContainer>
 )
 
 export default Tag

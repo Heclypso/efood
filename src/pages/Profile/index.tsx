@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 
 import Header from '../../components/Header'
-import ProductsList, { Product } from '../../containers/ProductsList'
+import ProductsList from '../../containers/ProductsList'
 import Overlay from '../../components/Overlay'
 
 import { RootReducer } from '../../store'

@@ -1,14 +1,12 @@
-import * as S from './styles'
-
-import star from '../../assets/icons/star.svg'
-
 import Button from '../../components/Button'
 import Tag from '../../components/Tag'
 
-import { Restaurants } from '../../pages/Home'
+import star from '../../assets/icons/star.svg'
+
+import * as S from './styles'
 
 type Props = {
-  restaurants: Restaurants[]
+  restaurants: Restaurant[]
 }
 
 const RestaurantsList = ({ restaurants }: Props) => {

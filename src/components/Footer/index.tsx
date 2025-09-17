@@ -1,10 +1,9 @@
-import * as S from './styles'
-
 import logo from '../../assets/images/logo.png'
-
 import instagram from '../../assets/icons/instagram.svg'
 import facebook from '../../assets/icons/facebook.svg'
 import twitter from '../../assets/icons/twitter.svg'
+
+import * as S from './styles'
 
 const Footer = () => (
   <S.FooterContainer>

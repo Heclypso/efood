@@ -1,43 +1,38 @@
-import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
+
+import ShoppingCartElement from '../ShoppingCart'
+
+import { useGetRestaurantQuery } from '../../services/api'
+
+import logo from '../../assets/images/logo.png'
+import Button from '../Button'
+
+import { RootReducer } from '../../store'
 
 import * as S from './styles'
 import { colors } from '../../styles'
 
-import ShoppingCartElement from '../ShoppingCart'
-
-import logo from '../../assets/images/logo.png'
-
-import Button from '../Button'
-
-import { RootReducer } from '../../store'
 import {
   toggleShowOverlay,
   toggleShowShoppingCart
 } from '../../store/reducers/shoppingCartReducer'
-import { Restaurants } from '../../pages/Home'
 
 export type Props = {
   shape: 'profile' | 'home'
 }
 
-const Header = ({ shape }: Props) => {
-  const { id } = useParams()
+type RestaurantParams = {
+  id: string
+}
 
-  const [restaurant, setRestaurant] = useState<Restaurants>()
+const Header = ({ shape }: Props) => {
+  const { id } = useParams() as RestaurantParams
+  const { data: restaurant } = useGetRestaurantQuery(id != undefined ? id : '1')
 
   const { items, showShoppingCart } = useSelector(
     (state: RootReducer) => state.shoppingCart
   )
-
-  useEffect(() => {
-    if (id != undefined) {
-      fetch(`https://ebac-fake-api.vercel.app/api/efood/restaurantes/${id}`)
-        .then((res) => res.json())
-        .then((res) => setRestaurant(res))
-    }
-  }, [id])
 
   const dispatch = useDispatch()
 
@@ -55,7 +50,7 @@ const Header = ({ shape }: Props) => {
           )}
           <img src={logo} alt="Logo da efood" />
           {shape === 'profile' && (
-            <S.ShoppingCart onClick={() => shoppingCartHandler()}>
+            <S.ShoppingCart onClick={shoppingCartHandler}>
               {items.length} - Produtos no carrinho
             </S.ShoppingCart>
           )}

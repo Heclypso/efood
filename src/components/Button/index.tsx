@@ -7,9 +7,11 @@ export type Props = {
   $background: 'orange' | 'beige' | 'transparent'
   to?: string
   onClick?: () => void
+  type?: 'button' | 'submit'
+  disabled?: boolean
 }
 
-const Button = ({ value, $background, to, onClick }: Props) => {
+const Button = ({ value, $background, to, onClick, type, disabled }: Props) => {
   if (to) {
     return (
       <ButtonElement as={Link} to={to} $background={$background}>
@@ -20,8 +22,9 @@ const Button = ({ value, $background, to, onClick }: Props) => {
 
   return (
     <ButtonElement
+      disabled={disabled}
       as="button"
-      type="button"
+      type={type}
       onClick={onClick}
       $background={$background}
     >

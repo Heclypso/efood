@@ -1,14 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-export type Product = {
-  id: number
-  foto: string
-  nome: string
-  descricao: string
-  preco: string
-  porcao: string
-}
-
 type ShoppingCartState = {
   items: Product[]
   showOverlay: boolean

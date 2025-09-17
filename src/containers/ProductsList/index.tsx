@@ -1,26 +1,20 @@
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import * as S from './styles'
+import Button from '../../components/Button'
 
 import closeIcon from '../../assets/icons/close.svg'
 
-import Button from '../../components/Button'
+import { parseToBrl } from '../../utils'
+
+import * as S from './styles'
+
 import {
   addToShoppingCart,
   toggleShowOverlay,
   toggleShowProductModal
 } from '../../store/reducers/shoppingCartReducer'
 import { RootReducer } from '../../store'
-
-export type Product = {
-  foto: string
-  preco: number
-  id: number
-  nome: string
-  descricao: string
-  porcao: string
-}
 
 type Props = {
   products: Product[]
@@ -34,13 +28,6 @@ const ProductsList = ({ products }: Props) => {
       return description.slice(0, 129) + '...'
     }
     return description
-  }
-
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('pt-BR', {
-      style: 'currency',
-      currency: 'BRL'
-    }).format(price)
   }
 
   const { showProductModal } = useSelector(
@@ -61,7 +48,7 @@ const ProductsList = ({ products }: Props) => {
         foto: product?.foto,
         nome: product?.nome,
         descricao: product?.descricao,
-        preco: formatPrice(product.preco),
+        preco: product.preco,
         porcao: product?.porcao
       })
     )
@@ -92,7 +79,7 @@ const ProductsList = ({ products }: Props) => {
             <S.ModalImage src={selectedProduct?.foto} alt="Imagem do produto" />
             <S.ModalContainer>
               <S.CloseModal
-                onClick={() => modalHandler()}
+                onClick={modalHandler}
                 src={closeIcon}
                 alt="Ícone de fechar"
               />
@@ -107,7 +94,7 @@ const ProductsList = ({ products }: Props) => {
                   modalHandler()
                   shoppingCartHandler(selectedProduct)
                 }}
-                value={`Adicionar ao carrinho - ${formatPrice(selectedProduct?.preco)}`}
+                value={`Adicionar ao carrinho - ${parseToBrl(selectedProduct?.preco)}`}
                 $background="beige"
               />
             </S.ModalContainer>

@@ -95,15 +95,17 @@ export const Label = styled.label`
   color: ${colors.secondaryColor};
 `
 
-export const Input = styled.input`
-  font-weight: bold;
-  height: 32px;
-  width: 100%;
-  border: none;
-  background-color: ${colors.secondaryColor};
-  color: ${colors.inputTextColor};
-  margin: 8px 0px;
-  padding: 8px;
+export const InputGroup = styled.div`
+  input {
+    font-weight: bold;
+    height: 32px;
+    width: 100%;
+    border: none;
+    background-color: ${colors.secondaryColor};
+    color: ${colors.inputTextColor};
+    margin: 8px 0px;
+    padding: 8px;
+  }
 `
 
 export const InputWrapper = styled.div`
