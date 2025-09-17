@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
+// import InputMask from 'react-input-mask'
 
 import Button from '../Button'
 
@@ -26,48 +27,60 @@ const ShoppingCart = () => {
 
   const form = useFormik({
     initialValues: {
-      delivery: {
-        receiver: '',
-        address: {
-          description: '',
-          city: '',
-          zipCode: '',
-          number: '',
-          complement: ''
-        }
-      },
-      payment: {
-        card: {
-          name: '',
-          number: '',
-          code: '',
-          expires: {
-            month: '',
-            year: ''
-          }
-        }
-      }
+      receiver: '',
+      description: '',
+      city: '',
+      zipCode: '',
+      number: '',
+      complement: '',
+      name: '',
+      cardNumber: '',
+      code: '',
+      month: '',
+      year: ''
     },
     validationSchema: Yup.object({
-      adressee: Yup.string()
+      // Validação da entrega
+
+      receiver: Yup.string()
         .min(3, 'O nome precisa ter pelo menos 3 caracteres.')
         .required('O campo é obrigatório.'),
-      adress: Yup.string()
+      description: Yup.string()
         .min(5, 'O endereço precisa ter pelo menos 5 caracteres.')
         .required('O campo é obrigatório.'),
       city: Yup.string()
         .min(1, 'O nome da cidade precisa ter pelo menos um caractere')
         .required('O campo é obrigatório.'),
-      cep: Yup.string().required('O campo é obrigatório.'),
-      complement: Yup.string(),
-      phoneNumber: Yup.string().required('O campo é obrigatório.'),
-      cardName: Yup.string()
-        .min(3, 'O nome no cartão precisa ter pelo menos 5 caracteres.')
+      zipCode: Yup.string()
+        .min(8, 'O campo deve conter 8 caracteres')
+        .max(8, 'O campo deve conter 8 caracteres')
         .required('O campo é obrigatório.'),
-      cardNumber: Yup.string().required('O campo é obrigatório.'),
-      cvv: Yup.string().required('O campo é obrigatório.'),
-      dueMonth: Yup.string().required('O campo é obrigatório.'),
-      dueYear: Yup.string().required('O campo é obrigatório.')
+      number: Yup.string()
+        .min(1, 'O campo deve conter pelo menos um digito')
+        .required('O campo é obrigatório.'),
+      complement: Yup.string(),
+
+      // Validação do cartão
+
+      name: Yup.string()
+        .min(3, 'O nome no cartão precisa ter pelo menos 5 caracteres.')
+        .required('O campo é obrigatório'),
+      cardNumber: Yup.string()
+        .min(16, 'O número do cartão deve ter 16 digitos')
+        .max(16, 'O número do cartão deve ter 16 digitos')
+        .required('O campo é obrigatório.'),
+      cvv: Yup.string()
+        .min(3, 'O campo deve conter 3 caracteres')
+        .max(3, 'O campo deve conter 3 caracteres')
+        .required('O campo é obrigatório.'),
+      dueMonth: Yup.string()
+        .min(2, 'O campo deve conter 2 caracteres')
+        .max(2, 'O campo deve conter 2 caracteres')
+        .required('O campo é obrigatório.'),
+      dueYear: Yup.string()
+        .min(4, 'O campo deve conter 4 caracteres')
+        .max(4, 'O campo deve conter 4 caracteres')
+        .required('O campo é obrigatório.')
     }),
     onSubmit: (values) => {
       purchase({
@@ -76,23 +89,23 @@ const ShoppingCart = () => {
           price: item.preco
         })),
         delivery: {
-          receiver: values.delivery.receiver,
+          receiver: values.receiver,
           address: {
-            description: values.delivery.address.description,
-            city: values.delivery.address.city,
-            zipCode: values.delivery.address.zipCode,
-            number: values.delivery.address.number,
-            complement: values.delivery.address.complement
+            description: values.description,
+            city: values.city,
+            zipCode: values.zipCode,
+            number: values.number,
+            complement: values.complement
           }
         },
         payment: {
           card: {
-            name: values.payment.card.name,
-            number: values.payment.card.number,
-            code: Number(values.payment.card.code),
+            name: values.name,
+            number: values.number,
+            code: Number(values.code),
             expires: {
-              month: Number(values.payment.card.expires.month),
-              year: Number(values.payment.card.expires.year)
+              month: Number(values.month),
+              year: Number(values.year)
             }
           }
         }
@@ -181,65 +194,73 @@ const ShoppingCart = () => {
           <S.InputGroup>
             <S.Label htmlFor="receiver">Quem irá receber</S.Label>
             <input
-              value={form.values.delivery.receiver}
+              value={form.values.receiver}
               onChange={form.handleChange}
               onBlur={form.handleBlur}
               required
               type="text"
               id="receiver"
               name="receiver"
+              className={checkInputHasErrors('receiver') ? 'error' : ''}
             />
           </S.InputGroup>
 
           <S.InputGroup>
-            <S.Label htmlFor="addressDescription">Endereço</S.Label>
+            <S.Label htmlFor="description">Endereço</S.Label>
             <input
-              value={form.values.delivery.address.description}
+              value={form.values.description}
               onChange={form.handleChange}
               onBlur={form.handleBlur}
               required
               type="text"
-              id="addressDescription"
-              name="addressDescription"
+              id="description"
+              name="description"
+              className={checkInputHasErrors('description') ? 'error' : ''}
             />
           </S.InputGroup>
 
           <S.InputGroup>
             <S.Label htmlFor="city">Cidade</S.Label>
             <input
-              value={form.values.delivery.address.city}
+              value={form.values.city}
               onChange={form.handleChange}
               onBlur={form.handleBlur}
               required
               type="text"
               id="city"
               name="city"
+              className={checkInputHasErrors('city') ? 'error' : ''}
             />
           </S.InputGroup>
 
           <S.InputWrapper>
             <S.InputGroup>
               <S.Label htmlFor="zipCode">CEP</S.Label>
+              {/* <InputMask */}
               <input
                 type="text"
                 id="zipCode"
                 name="zipCode"
-                value={form.values.delivery.address.zipCode}
+                value={form.values.zipCode}
                 onChange={form.handleChange}
                 onBlur={form.handleBlur}
+                className={checkInputHasErrors('zipCode') ? 'error' : ''}
+                maxLength={8}
+                // mask="99999 99"
               />
             </S.InputGroup>
 
             <S.InputGroup>
               <S.Label htmlFor="number">Número</S.Label>
               <input
-                value={form.values.delivery.address.number}
+                value={form.values.number}
                 onChange={form.handleChange}
                 onBlur={form.handleBlur}
                 required
                 type="text"
                 id="number"
                 name="number"
+                className={checkInputHasErrors('number') ? 'error' : ''}
               />
             </S.InputGroup>
           </S.InputWrapper>
@@ -247,7 +268,7 @@ const ShoppingCart = () => {
           <S.InputGroup>
             <S.Label htmlFor="complement">Complemento (opcional)</S.Label>
             <input
-              value={form.values.delivery.address.complement}
+              value={form.values.complement}
               onChange={form.handleChange}
               onBlur={form.handleBlur}
               type="text"
@@ -257,12 +278,7 @@ const ShoppingCart = () => {
           </S.InputGroup>
 
           <Button
-            onClick={() => {
-              form.validateForm()
-              if (form.isValid) {
-                deliveryHandler()
-              }
-            }}
+            onClick={deliveryHandler}
             type="button"
             $background="beige"
             value="Continuar com o pagamento"
@@ -286,15 +302,16 @@ const ShoppingCart = () => {
           </S.Title>
 
           <S.InputGroup>
-            <S.Label htmlFor="cardName">Nome no cartão</S.Label>
+            <S.Label htmlFor="name">Nome no cartão</S.Label>
             <input
-              value={form.values.payment.card.name}
+              value={form.values.name}
               onChange={form.handleChange}
               onBlur={form.handleBlur}
               required
               type="text"
-              id="cardName"
-              name="cardName"
+              id="name"
+              name="name"
+              className={checkInputHasErrors('name') ? 'error' : ''}
             />
           </S.InputGroup>
 
@@ -302,54 +319,62 @@ const ShoppingCart = () => {
             <S.InputGroup>
               <S.Label htmlFor="cardNumber">Número do cartão</S.Label>
               <input
-                value={form.values.payment.card.number}
+                value={form.values.cardNumber}
                 onChange={form.handleChange}
                 onBlur={form.handleBlur}
                 required
                 type="text"
                 id="cardNumber"
                 name="cardNumber"
+                className={checkInputHasErrors('cardNumber') ? 'error' : ''}
+                maxLength={16}
               />
             </S.InputGroup>
 
             <S.InputGroup>
-              <S.Label htmlFor="cardCode">CVV</S.Label>
+              <S.Label htmlFor="code">CVV</S.Label>
               <input
-                value={form.values.payment.card.code}
+                value={form.values.code}
                 onChange={form.handleChange}
                 onBlur={form.handleBlur}
                 required
                 type="text"
-                id="cardCode"
-                name="cardCode"
+                id="code"
+                name="code"
+                className={checkInputHasErrors('code') ? 'error' : ''}
+                maxLength={3}
               />
             </S.InputGroup>
           </S.InputWrapper>
 
           <S.InputWrapper>
             <S.InputGroup>
-              <S.Label htmlFor="expiresMonth">Mês de vencimento</S.Label>
+              <S.Label htmlFor="month">Mês de vencimento</S.Label>
               <input
-                value={form.values.payment.card.expires.month}
+                value={form.values.month}
                 onChange={form.handleChange}
                 onBlur={form.handleBlur}
                 required
                 type="text"
-                id="expiresMonth"
-                name="expiresMonth"
+                id="month"
+                name="month"
+                className={checkInputHasErrors('month') ? 'error' : ''}
+                maxLength={2}
               />
             </S.InputGroup>
 
             <S.InputGroup>
-              <S.Label htmlFor="expiresYear">Ano de vencimento</S.Label>
+              <S.Label htmlFor="year">Ano de vencimento</S.Label>
               <input
-                value={form.values.payment.card.expires.year}
+                value={form.values.year}
                 onChange={form.handleChange}
                 onBlur={form.handleBlur}
                 required
                 type="text"
-                id="expiresYear"
-                name="expiresYear"
+                id="year"
+                name="year"
+                className={checkInputHasErrors('year') ? 'error' : ''}
+                maxLength={4}
               />
             </S.InputGroup>
           </S.InputWrapper>
@@ -357,7 +382,7 @@ const ShoppingCart = () => {
           <Button
             disabled={isLoading}
             onClick={() => {
-              form.handleSubmit
+              form.handleSubmit()
               paymentHandler()
             }}
             $background="beige"
@@ -377,9 +402,9 @@ const ShoppingCart = () => {
           />
         </S.Form>
       )}
-      {isSuccess && (
+      {isSuccess && data && (
         <S.Sucess>
-          <S.SucessTitle>Pedido realizado - ##########</S.SucessTitle>
+          <S.SucessTitle>Pedido realizado - {data.orderId}</S.SucessTitle>
           <S.SucessText>
             Estamos felizes em informar que seu pedido já está em processo de
             preparação e, em breve, será entregue no endereço fornecido. <br />

@@ -105,6 +105,11 @@ export const InputGroup = styled.div`
     color: ${colors.inputTextColor};
     margin: 8px 0px;
     padding: 8px;
+
+    &.error {
+      background-color: ${colors.errorTextColor};
+      color: ${colors.textColor};
+    }
   }
 `
 
