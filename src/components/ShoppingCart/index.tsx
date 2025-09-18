@@ -143,6 +143,18 @@ const ShoppingCart = () => {
     return hasError
   }
 
+  const checkCurrentStepIsInvalid = (inputs: string[]) => {
+    const isTouched = inputs.some((input) => input in form.touched)
+    const isInvalid = inputs.some((input) => input in form.errors)
+
+    const result = isTouched && isInvalid
+
+    if (!isTouched) {
+      return true
+    }
+    return result
+  }
+
   return (
     <S.ShoppingCartAside>
       {showShoppingCart && (
@@ -187,221 +199,238 @@ const ShoppingCart = () => {
         </>
       )}
 
-      {showDeliveryForm && (
-        <S.Form>
-          <S.Title>Entrega</S.Title>
-
-          <S.InputGroup>
-            <S.Label htmlFor="receiver">Quem irá receber</S.Label>
-            <input
-              value={form.values.receiver}
-              onChange={form.handleChange}
-              onBlur={form.handleBlur}
-              required
-              type="text"
-              id="receiver"
-              name="receiver"
-              className={checkInputHasErrors('receiver') ? 'error' : ''}
-            />
-          </S.InputGroup>
-
-          <S.InputGroup>
-            <S.Label htmlFor="description">Endereço</S.Label>
-            <input
-              value={form.values.description}
-              onChange={form.handleChange}
-              onBlur={form.handleBlur}
-              required
-              type="text"
-              id="description"
-              name="description"
-              className={checkInputHasErrors('description') ? 'error' : ''}
-            />
-          </S.InputGroup>
-
-          <S.InputGroup>
-            <S.Label htmlFor="city">Cidade</S.Label>
-            <input
-              value={form.values.city}
-              onChange={form.handleChange}
-              onBlur={form.handleBlur}
-              required
-              type="text"
-              id="city"
-              name="city"
-              className={checkInputHasErrors('city') ? 'error' : ''}
-            />
-          </S.InputGroup>
-
-          <S.InputWrapper>
-            <S.InputGroup>
-              <S.Label htmlFor="zipCode">CEP</S.Label>
-              {/* <InputMask */}
-              <input
-                type="text"
-                id="zipCode"
-                name="zipCode"
-                value={form.values.zipCode}
-                onChange={form.handleChange}
-                onBlur={form.handleBlur}
-                className={checkInputHasErrors('zipCode') ? 'error' : ''}
-                maxLength={8}
-                // mask="99999 99"
-              />
-            </S.InputGroup>
+      <S.Form>
+        {showDeliveryForm && (
+          <>
+            <S.Title>Entrega</S.Title>
 
             <S.InputGroup>
-              <S.Label htmlFor="number">Número</S.Label>
+              <S.Label htmlFor="receiver">Quem irá receber</S.Label>
               <input
-                value={form.values.number}
+                value={form.values.receiver}
                 onChange={form.handleChange}
                 onBlur={form.handleBlur}
                 required
                 type="text"
-                id="number"
-                name="number"
-                className={checkInputHasErrors('number') ? 'error' : ''}
+                id="receiver"
+                name="receiver"
+                className={checkInputHasErrors('receiver') ? 'error' : ''}
               />
             </S.InputGroup>
-          </S.InputWrapper>
 
-          <S.InputGroup>
-            <S.Label htmlFor="complement">Complemento (opcional)</S.Label>
-            <input
-              value={form.values.complement}
-              onChange={form.handleChange}
-              onBlur={form.handleBlur}
-              type="text"
-              id="complement"
-              name="complement"
+            <S.InputGroup>
+              <S.Label htmlFor="description">Endereço</S.Label>
+              <input
+                value={form.values.description}
+                onChange={form.handleChange}
+                onBlur={form.handleBlur}
+                required
+                type="text"
+                id="description"
+                name="description"
+                className={checkInputHasErrors('description') ? 'error' : ''}
+              />
+            </S.InputGroup>
+
+            <S.InputGroup>
+              <S.Label htmlFor="city">Cidade</S.Label>
+              <input
+                value={form.values.city}
+                onChange={form.handleChange}
+                onBlur={form.handleBlur}
+                required
+                type="text"
+                id="city"
+                name="city"
+                className={checkInputHasErrors('city') ? 'error' : ''}
+              />
+            </S.InputGroup>
+
+            <S.InputWrapper>
+              <S.InputGroup>
+                <S.Label htmlFor="zipCode">CEP</S.Label>
+                {/* <InputMask */}
+                <input
+                  type="text"
+                  id="zipCode"
+                  name="zipCode"
+                  value={form.values.zipCode}
+                  onChange={form.handleChange}
+                  onBlur={form.handleBlur}
+                  className={checkInputHasErrors('zipCode') ? 'error' : ''}
+                  maxLength={8}
+                  // mask="99999 99"
+                />
+              </S.InputGroup>
+
+              <S.InputGroup>
+                <S.Label htmlFor="number">Número</S.Label>
+                <input
+                  value={form.values.number}
+                  onChange={form.handleChange}
+                  onBlur={form.handleBlur}
+                  required
+                  type="text"
+                  id="number"
+                  name="number"
+                  className={checkInputHasErrors('number') ? 'error' : ''}
+                />
+              </S.InputGroup>
+            </S.InputWrapper>
+
+            <S.InputGroup>
+              <S.Label htmlFor="complement">Complemento (opcional)</S.Label>
+              <input
+                value={form.values.complement}
+                onChange={form.handleChange}
+                onBlur={form.handleBlur}
+                type="text"
+                id="complement"
+                name="complement"
+              />
+            </S.InputGroup>
+
+            <Button
+              disabled={checkCurrentStepIsInvalid([
+                'receiver',
+                'description',
+                'city',
+                'number',
+                'zipCode'
+              ])}
+              onClick={deliveryHandler}
+              type="button"
+              $background="beige"
+              value="Continuar com o pagamento"
             />
-          </S.InputGroup>
-
-          <Button
-            onClick={deliveryHandler}
-            type="button"
-            $background="beige"
-            value="Continuar com o pagamento"
-          />
-          <Button
-            onClick={() => {
-              setShowShoppingCart(true)
-              setShowDeliveryForm(false)
-            }}
-            type="button"
-            $background="beige"
-            value="Voltar para o carrinho"
-          />
-        </S.Form>
-      )}
-
-      {showPaymentForm && (
-        <S.Form>
-          <S.Title>
-            Pagamento - Valor a pagar {parseToBrl(getTotalPrice(items))}
-          </S.Title>
-
-          <S.InputGroup>
-            <S.Label htmlFor="name">Nome no cartão</S.Label>
-            <input
-              value={form.values.name}
-              onChange={form.handleChange}
-              onBlur={form.handleBlur}
-              required
-              type="text"
-              id="name"
-              name="name"
-              className={checkInputHasErrors('name') ? 'error' : ''}
+            <Button
+              onClick={() => {
+                setShowShoppingCart(true)
+                setShowDeliveryForm(false)
+              }}
+              type="button"
+              $background="beige"
+              value="Voltar para o carrinho"
             />
-          </S.InputGroup>
+          </>
+        )}
+        {showPaymentForm && (
+          <>
+            <S.Title>
+              Pagamento - Valor a pagar {parseToBrl(getTotalPrice(items))}
+            </S.Title>
 
-          <S.InputWrapper>
             <S.InputGroup>
-              <S.Label htmlFor="cardNumber">Número do cartão</S.Label>
+              <S.Label htmlFor="name">Nome no cartão</S.Label>
               <input
-                value={form.values.cardNumber}
+                value={form.values.name}
                 onChange={form.handleChange}
                 onBlur={form.handleBlur}
                 required
                 type="text"
-                id="cardNumber"
-                name="cardNumber"
-                className={checkInputHasErrors('cardNumber') ? 'error' : ''}
-                maxLength={16}
+                id="name"
+                name="name"
+                className={checkInputHasErrors('name') ? 'error' : ''}
               />
             </S.InputGroup>
 
-            <S.InputGroup>
-              <S.Label htmlFor="code">CVV</S.Label>
-              <input
-                value={form.values.code}
-                onChange={form.handleChange}
-                onBlur={form.handleBlur}
-                required
-                type="text"
-                id="code"
-                name="code"
-                className={checkInputHasErrors('code') ? 'error' : ''}
-                maxLength={3}
-              />
-            </S.InputGroup>
-          </S.InputWrapper>
+            <S.InputWrapper>
+              <S.InputGroup>
+                <S.Label htmlFor="cardNumber">Número do cartão</S.Label>
+                <input
+                  value={form.values.cardNumber}
+                  onChange={form.handleChange}
+                  onBlur={form.handleBlur}
+                  required
+                  type="text"
+                  id="cardNumber"
+                  name="cardNumber"
+                  className={checkInputHasErrors('cardNumber') ? 'error' : ''}
+                  maxLength={16}
+                />
+              </S.InputGroup>
 
-          <S.InputWrapper>
-            <S.InputGroup>
-              <S.Label htmlFor="month">Mês de vencimento</S.Label>
-              <input
-                value={form.values.month}
-                onChange={form.handleChange}
-                onBlur={form.handleBlur}
-                required
-                type="text"
-                id="month"
-                name="month"
-                className={checkInputHasErrors('month') ? 'error' : ''}
-                maxLength={2}
-              />
-            </S.InputGroup>
+              <S.InputGroup>
+                <S.Label htmlFor="code">CVV</S.Label>
+                <input
+                  value={form.values.code}
+                  onChange={form.handleChange}
+                  onBlur={form.handleBlur}
+                  required
+                  type="text"
+                  id="code"
+                  name="code"
+                  className={checkInputHasErrors('code') ? 'error' : ''}
+                  maxLength={3}
+                />
+              </S.InputGroup>
+            </S.InputWrapper>
 
-            <S.InputGroup>
-              <S.Label htmlFor="year">Ano de vencimento</S.Label>
-              <input
-                value={form.values.year}
-                onChange={form.handleChange}
-                onBlur={form.handleBlur}
-                required
-                type="text"
-                id="year"
-                name="year"
-                className={checkInputHasErrors('year') ? 'error' : ''}
-                maxLength={4}
-              />
-            </S.InputGroup>
-          </S.InputWrapper>
+            <S.InputWrapper>
+              <S.InputGroup>
+                <S.Label htmlFor="month">Mês de vencimento</S.Label>
+                <input
+                  value={form.values.month}
+                  onChange={form.handleChange}
+                  onBlur={form.handleBlur}
+                  required
+                  type="text"
+                  id="month"
+                  name="month"
+                  className={checkInputHasErrors('month') ? 'error' : ''}
+                  maxLength={2}
+                />
+              </S.InputGroup>
 
-          <Button
-            disabled={isLoading}
-            onClick={() => {
-              form.handleSubmit()
-              paymentHandler()
-            }}
-            $background="beige"
-            value={isLoading ? 'Finalizando pedido...' : 'Finalizar pagamento'}
-            type="submit"
-          />
-          <Button
-            disabled={isLoading}
-            onClick={() => {
-              setShowShoppingCart(false)
-              setShowDeliveryForm(true)
-              setShowPaymentForm(false)
-            }}
-            type="button"
-            $background="beige"
-            value="Voltar para a edição de endereço"
-          />
-        </S.Form>
-      )}
+              <S.InputGroup>
+                <S.Label htmlFor="year">Ano de vencimento</S.Label>
+                <input
+                  value={form.values.year}
+                  onChange={form.handleChange}
+                  onBlur={form.handleBlur}
+                  required
+                  type="text"
+                  id="year"
+                  name="year"
+                  className={checkInputHasErrors('year') ? 'error' : ''}
+                  maxLength={4}
+                />
+              </S.InputGroup>
+            </S.InputWrapper>
+
+            <Button
+              disabled={checkCurrentStepIsInvalid([
+                'name',
+                'cardNumber',
+                'code',
+                'month',
+                'year'
+              ])}
+              onClick={() => {
+                form.handleSubmit()
+                paymentHandler()
+              }}
+              $background="beige"
+              value={
+                isLoading ? 'Finalizando pedido...' : 'Finalizar pagamento'
+              }
+              type="submit"
+            />
+            <Button
+              disabled={isLoading}
+              onClick={() => {
+                setShowShoppingCart(false)
+                setShowDeliveryForm(true)
+                setShowPaymentForm(false)
+              }}
+              type="button"
+              $background="beige"
+              value="Voltar para a edição de endereço"
+            />
+          </>
+        )}
+      </S.Form>
+
       {isSuccess && data && (
         <S.Sucess>
           <S.SucessTitle>Pedido realizado - {data.orderId}</S.SucessTitle>
