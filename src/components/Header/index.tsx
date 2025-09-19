@@ -41,6 +41,12 @@ const Header = ({ shape }: Props) => {
     dispatch(toggleShowOverlay())
   }
 
+  const formatFoodType = (foodType: string) => {
+    if (foodType) {
+      return foodType.charAt(0).toUpperCase() + foodType.slice(1)
+    }
+  }
+
   return (
     <>
       <S.HeaderContainer shape={shape}>
@@ -61,14 +67,14 @@ const Header = ({ shape }: Props) => {
           </S.Title>
         )}
       </S.HeaderContainer>
-      {shape === 'profile' && (
+      {shape === 'profile' && restaurant && (
         <S.ProfileInfoWrapper
           style={{
-            background: `linear-gradient(${colors.bannerOverlayColor}), url(${restaurant?.capa}) no-repeat center center / cover`
+            background: `linear-gradient(${colors.bannerOverlayColor}), url(${restaurant.capa}) no-repeat center center / cover`
           }}
         >
           <S.ProfileInfo>
-            <S.Category>{restaurant?.tipo}</S.Category>
+            <S.Category>{formatFoodType(restaurant.tipo)}</S.Category>
             <S.Name>{restaurant?.titulo}</S.Name>
           </S.ProfileInfo>
         </S.ProfileInfoWrapper>
