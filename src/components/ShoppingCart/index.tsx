@@ -122,10 +122,6 @@ const ShoppingCart = () => {
     setShowDeliveryForm(false)
   }
 
-  const paymentHandler = () => {
-    setShowPaymentForm(false)
-  }
-
   const sucessHandler = () => {
     setShowShoppingCart(true)
     setShowDeliveryForm(false)
@@ -215,6 +211,7 @@ const ShoppingCart = () => {
                   type="text"
                   id="receiver"
                   name="receiver"
+                  autoComplete="username"
                   className={checkInputHasErrors('receiver') ? 'error' : ''}
                 />
               </S.InputGroup>
@@ -229,6 +226,7 @@ const ShoppingCart = () => {
                   type="text"
                   id="description"
                   name="description"
+                  autoComplete="street-address"
                   className={checkInputHasErrors('description') ? 'error' : ''}
                 />
               </S.InputGroup>
@@ -243,6 +241,7 @@ const ShoppingCart = () => {
                   type="text"
                   id="city"
                   name="city"
+                  autoComplete="address-level2"
                   className={checkInputHasErrors('city') ? 'error' : ''}
                 />
               </S.InputGroup>
@@ -250,17 +249,16 @@ const ShoppingCart = () => {
               <S.InputWrapper>
                 <S.InputGroup>
                   <S.Label htmlFor="zipCode">CEP</S.Label>
-                  {/* <InputMask */}
                   <input
-                    type="text"
-                    id="zipCode"
-                    name="zipCode"
+                    //<InputMask
+                    //mask="99999-999"
                     value={form.values.zipCode}
                     onChange={form.handleChange}
                     onBlur={form.handleBlur}
+                    id="zipCode"
+                    name="zipCode"
+                    autoComplete="postal-code"
                     className={checkInputHasErrors('zipCode') ? 'error' : ''}
-                    maxLength={8}
-                    // mask="99999 99"
                   />
                 </S.InputGroup>
 
@@ -271,9 +269,10 @@ const ShoppingCart = () => {
                     onChange={form.handleChange}
                     onBlur={form.handleBlur}
                     required
-                    type="text"
+                    type="tel"
                     id="number"
                     name="number"
+                    autoComplete="address-line2"
                     className={checkInputHasErrors('number') ? 'error' : ''}
                   />
                 </S.InputGroup>
@@ -288,6 +287,7 @@ const ShoppingCart = () => {
                   type="text"
                   id="complement"
                   name="complement"
+                  autoComplete="address-line3"
                 />
               </S.InputGroup>
 
@@ -331,6 +331,7 @@ const ShoppingCart = () => {
                   type="text"
                   id="name"
                   name="name"
+                  autoComplete="cc-name"
                   className={checkInputHasErrors('name') ? 'error' : ''}
                 />
               </S.InputGroup>
@@ -346,6 +347,7 @@ const ShoppingCart = () => {
                     type="text"
                     id="cardNumber"
                     name="cardNumber"
+                    autoComplete="cc-number"
                     className={checkInputHasErrors('cardNumber') ? 'error' : ''}
                     maxLength={16}
                   />
@@ -361,6 +363,7 @@ const ShoppingCart = () => {
                     type="text"
                     id="code"
                     name="code"
+                    autoComplete="cc-csc"
                     className={checkInputHasErrors('code') ? 'error' : ''}
                     maxLength={3}
                   />
@@ -378,6 +381,7 @@ const ShoppingCart = () => {
                     type="text"
                     id="month"
                     name="month"
+                    autoComplete="cc-exp-month"
                     className={checkInputHasErrors('month') ? 'error' : ''}
                     maxLength={2}
                   />
@@ -393,6 +397,7 @@ const ShoppingCart = () => {
                     type="text"
                     id="year"
                     name="year"
+                    autoComplete="cc-exp-year"
                     className={checkInputHasErrors('year') ? 'error' : ''}
                     maxLength={4}
                   />
