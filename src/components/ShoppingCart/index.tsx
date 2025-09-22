@@ -259,6 +259,7 @@ const ShoppingCart = () => {
                     name="zipCode"
                     autoComplete="postal-code"
                     className={checkInputHasErrors('zipCode') ? 'error' : ''}
+                    maxLength={8}
                   />
                 </S.InputGroup>
 
