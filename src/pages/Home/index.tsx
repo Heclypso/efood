@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react'
+import { BeatLoader } from 'react-spinners'
 
 import Header from '../../components/Header'
 import RestaurantsList from '../../containers/RestaurantsList'
+import { colors } from '../../styles'
 
 const Home = () => {
   const [restaurants, setRestaurants] = useState<Restaurant[]>()
@@ -13,7 +15,12 @@ const Home = () => {
   }, [])
 
   if (!restaurants) {
-    return <>Carregando...</>
+    return (
+      <BeatLoader
+        style={{ position: 'absolute', top: '25%', right: '48%' }}
+        color={colors.tertiaryColor}
+      />
+    )
   }
 
   return (

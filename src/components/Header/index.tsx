@@ -3,20 +3,20 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import ShoppingCartElement from '../ShoppingCart'
 
-import { useGetRestaurantQuery } from '../../services/api'
-
 import logo from '../../assets/images/logo.png'
 import Button from '../Button'
 
-import { RootReducer } from '../../store'
-
-import * as S from './styles'
-import { colors } from '../../styles'
+import { useGetRestaurantQuery } from '../../services/api'
 
 import {
   toggleShowOverlay,
   toggleShowShoppingCart
 } from '../../store/reducers/shoppingCartReducer'
+
+import { RootReducer } from '../../store'
+
+import * as S from './styles'
+import { colors } from '../../styles'
 
 export type Props = {
   shape: 'profile' | 'home'

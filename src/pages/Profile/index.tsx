@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
+import { BeatLoader } from 'react-spinners'
 
 import Header from '../../components/Header'
 import ProductsList from '../../containers/ProductsList'
 import Overlay from '../../components/Overlay'
 
 import { RootReducer } from '../../store'
+import { colors } from '../../styles'
 
 const Profile = () => {
   const { id } = useParams()
@@ -24,7 +26,12 @@ const Profile = () => {
   }, [id])
 
   if (!products) {
-    return <>Carregando...</>
+    return (
+      <BeatLoader
+        style={{ position: 'absolute', top: '25%', right: '48%' }}
+        color={colors.tertiaryColor}
+      />
+    )
   }
 
   return (
