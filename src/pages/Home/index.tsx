@@ -9,7 +9,7 @@ const Home = () => {
   const [restaurants, setRestaurants] = useState<Restaurant[]>()
 
   useEffect(() => {
-    fetch('https://ebac-fake-api.vercel.app/api/efood/restaurantes')
+    fetch('https://api-ebac.vercel.app/api/efood/restaurantes')
       .then((res) => res.json())
       .then((res) => setRestaurants(res))
   }, [])
@@ -17,7 +17,7 @@ const Home = () => {
   if (!restaurants) {
     return (
       <BeatLoader
-        style={{ position: 'absolute', top: '25%', right: '48%' }}
+        style={{ position: 'absolute', top: '11.5rem', right: '48%' }}
         color={colors.tertiaryColor}
       />
     )

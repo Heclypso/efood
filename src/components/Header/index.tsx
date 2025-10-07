@@ -15,8 +15,8 @@ import {
 
 import { RootReducer } from '../../store'
 
-import * as S from './styles'
 import { colors } from '../../styles'
+import * as S from './styles'
 
 export type Props = {
   shape: 'profile' | 'home'

@@ -20,7 +20,7 @@ const Profile = () => {
   )
 
   useEffect(() => {
-    fetch(`https://ebac-fake-api.vercel.app/api/efood/restaurantes/${id}`)
+    fetch(`https://api-ebac.vercel.app/api/efood/restaurantes/${id}`)
       .then((res) => res.json())
       .then((res) => setProducts(res.cardapio))
   }, [id])
@@ -28,7 +28,7 @@ const Profile = () => {
   if (!products) {
     return (
       <BeatLoader
-        style={{ position: 'absolute', top: '25%', right: '48%' }}
+        style={{ position: 'absolute', top: '11.5rem', right: '48%' }}
         color={colors.tertiaryColor}
       />
     )
