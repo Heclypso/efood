@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { colors } from '../../styles'
+import { breakpoints, colors } from '../../styles'
 
 import pattern from '../../assets/images/pattern.png'
 
@@ -13,6 +13,10 @@ export const HeaderContainer = styled.header<Props>`
   flex-direction: ${({ shape }) => (shape === 'home' ? 'column' : 'row')};
   align-items: center;
   justify-content: space-between;
+
+  @media (max-width: ${breakpoints.mobile}) {
+    height: ${({ shape }) => (shape === 'home' ? '288px' : '186px')};
+  }
 `
 
 export const ShoppingCart = styled.span`
@@ -21,6 +25,11 @@ export const ShoppingCart = styled.span`
   color: ${colors.tertiaryColor};
   width: 199px;
   cursor: pointer;
+
+  @media (max-width: ${breakpoints.mobile}) {
+    font-size: 1.2rem;
+    text-align: center;
+  }
 `
 
 export const ProfileHeaderWrapper = styled.div<Props>`
@@ -64,4 +73,9 @@ export const Title = styled.h1`
   color: ${colors.tertiaryColor};
   width: 539px;
   text-align: center;
+
+  @media (max-width: ${breakpoints.mobile}) {
+    font-size: 28px;
+    width: 80vw;
+  }
 `

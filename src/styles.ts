@@ -1,5 +1,10 @@
 import { createGlobalStyle } from 'styled-components'
 
+export const breakpoints = {
+  mobile: '768px',
+  desktop: '1024px'
+}
+
 export const colors = {
   primaryColor: '#FFF8F2',
   secondaryColor: '#FFEBD9',

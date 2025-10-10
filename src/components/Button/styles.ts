@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { colors } from '../../styles'
+import { breakpoints, colors } from '../../styles'
 
 import { Props } from '.'
 
@@ -23,4 +23,10 @@ export const ButtonElement = styled.div<Omit<Props, 'value' | 'to'>>`
   text-decoration: none;
   display: inline-block;
   text-align: ${({ $background }) => ($background === 'beige' ? 'center' : '')};
+
+  @media (max-width: ${breakpoints.mobile}) {
+    font-size: 1.2rem;
+    text-align: ${({ $background }) =>
+      $background === 'transparent' ? 'center' : 'auto'};
+  }
 `
