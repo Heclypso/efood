@@ -25,7 +25,8 @@ export const ButtonElement = styled.div<Omit<Props, 'value' | 'to'>>`
   text-align: ${({ $background }) => ($background === 'beige' ? 'center' : '')};
 
   @media (max-width: ${breakpoints.mobile}) {
-    font-size: 1.2rem;
+    font-size: ${({ $background }) =>
+      $background === 'transparent' ? '1.2rem' : '1rem'};
     text-align: ${({ $background }) =>
       $background === 'transparent' ? 'center' : 'auto'};
   }

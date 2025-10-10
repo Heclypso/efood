@@ -14,8 +14,13 @@ export const HeaderContainer = styled.header<Props>`
   align-items: center;
   justify-content: space-between;
 
+  @media (max-width: ${breakpoints.desktop}) {
+    padding: ${({ shape }) => (shape === 'home' ? '40px 0' : '0 5vw')};
+  }
+
   @media (max-width: ${breakpoints.mobile}) {
     height: ${({ shape }) => (shape === 'home' ? '288px' : '186px')};
+    padding: 40px 0px;
   }
 `
 
@@ -29,6 +34,10 @@ export const ShoppingCart = styled.span`
   @media (max-width: ${breakpoints.mobile}) {
     font-size: 1.2rem;
     text-align: center;
+
+    > span {
+      display: none;
+    }
   }
 `
 
@@ -55,16 +64,32 @@ export const ProfileInfo = styled.div`
   flex-direction: column;
   justify-content: space-between;
   padding: 25px 0px 32px 0px;
+
+  @media (max-width: ${breakpoints.desktop}) {
+    width: 90%;
+  }
 `
 
 export const Category = styled.h2`
   font-size: 32px;
   font-weight: 100;
+
+  @media (max-width: ${breakpoints.desktop}) {
+    font-size: 2rem;
+  }
 `
 
 export const Name = styled.h1`
   font-size: 32px;
   font-weight: 900;
+
+  @media (max-width: ${breakpoints.desktop}) {
+    font-size: 2rem;
+  }
+
+  @media (max-width: ${breakpoints.mobile}) {
+    font-size: 1.6rem;
+  }
 `
 
 export const Title = styled.h1`

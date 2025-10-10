@@ -35,5 +35,15 @@ export const GlobalStyle = createGlobalStyle`
         padding-top: 80px;
         padding-bottom: 120px;
         position: relative;
+
+      @media (max-width: ${breakpoints.desktop}) {
+        width: 90vw;
+        margin: 0 auto;
+        padding-bottom: 6rem;
+      }
+
+      @media (max-width: ${breakpoints.mobile}) {
+        width: 90vw;
+      }
     }
 `

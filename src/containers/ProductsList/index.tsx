@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import Button from '../../components/Button'
@@ -22,6 +22,7 @@ type Props = {
 
 const ProductsList = ({ products }: Props) => {
   const [selectedProduct, setSelectedProduct] = useState<Product>()
+  const modalRef = useRef<HTMLDivElement>(null)
 
   const formatDescription = (description: string) => {
     if (description.length > 129) {
@@ -54,6 +55,14 @@ const ProductsList = ({ products }: Props) => {
     )
   }
 
+  useEffect(() => {
+    modalRef.current?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center',
+      inline: 'center'
+    })
+  })
+
   return (
     <div className="container">
       <S.ProductsContainer>
@@ -75,7 +84,7 @@ const ProductsList = ({ products }: Props) => {
           </S.Product>
         ))}
         {showProductModal && selectedProduct && (
-          <S.Modal>
+          <S.Modal ref={modalRef}>
             <S.ModalImage src={selectedProduct?.foto} alt="Imagem do produto" />
             <S.ModalContainer>
               <S.CloseModal

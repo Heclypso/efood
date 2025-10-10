@@ -36,5 +36,5 @@ export const Text = styled.p`
   font-size: 10px;
   color: ${colors.tertiaryColor};
   text-align: center;
-  width: 480px;
+  width: 24rem;
 `

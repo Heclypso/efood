@@ -1,11 +1,21 @@
 import styled from 'styled-components'
-import { colors } from '../../styles'
+import { breakpoints, colors } from '../../styles'
 
 export const RestaurantsContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   column-gap: 80px;
   row-gap: 48px;
+
+  @media (max-width: ${breakpoints.desktop}) {
+    grid-template-columns: 1fr 1fr;
+    width: 90vw;
+    gap: 2rem;
+  }
+
+  @media (max-width: ${breakpoints.mobile}) {
+    grid-template-columns: 1fr;
+  }
 `
 
 export const Card = styled.div`

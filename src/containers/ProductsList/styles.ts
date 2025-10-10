@@ -1,11 +1,19 @@
 import styled from 'styled-components'
-import { colors } from '../../styles'
+import { breakpoints, colors } from '../../styles'
 import { ButtonElement } from '../../components/Button/styles'
 
 export const ProductsContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 32px;
+
+  @media (max-width: ${breakpoints.desktop}) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media (max-width: ${breakpoints.mobile}) {
+    grid-template-columns: 1fr;
+  }
 `
 
 export const Product = styled.div`
@@ -34,6 +42,10 @@ export const Description = styled.p`
   font-size: 14px;
   line-height: 22px;
   white-space: pre-line;
+
+  @media (max-width: 768px) {
+    margin: 1rem 0;
+  }
 `
 
 export const Modal = styled.div`
@@ -52,6 +64,15 @@ export const Modal = styled.div`
   ${ButtonElement} {
     align-self: flex-start;
   }
+
+  @media (max-width: 768px) {
+    height: auto;
+    flex-direction: column;
+
+    ${ButtonElement} {
+      width: 100%;
+    }
+  }
 `
 
 export const CloseModal = styled.img`
@@ -65,6 +86,11 @@ export const ModalImage = styled.img`
   height: 280px;
   margin-right: 24px;
   object-fit: cover;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
 `
 
 export const ModalContainer = styled.div`

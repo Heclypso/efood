@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { colors } from '../../styles'
+import { breakpoints, colors } from '../../styles'
 
 export const OverlayElement = styled.div`
   position: fixed;
@@ -9,4 +9,8 @@ export const OverlayElement = styled.div`
   height: 100vh;
   background-image: linear-gradient(${colors.overlayColor});
   z-index: 1;
+
+  @media (max-width: ${breakpoints.mobile}) {
+    height: 100%;
+  }
 `

@@ -57,7 +57,7 @@ const Header = ({ shape }: Props) => {
           <img src={logo} alt="Logo da efood" />
           {shape === 'profile' && (
             <S.ShoppingCart onClick={shoppingCartHandler}>
-              {items.length} - Produtos no carrinho
+              {items.length} - Produtos <span>no carrinho</span>
             </S.ShoppingCart>
           )}
         </S.ProfileHeaderWrapper>
