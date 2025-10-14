@@ -1,9 +1,12 @@
+import { BeatLoader } from 'react-spinners'
+
 import Button from '../../components/Button'
 import Tag from '../../components/Tag'
 
 import star from '../../assets/icons/star.svg'
 
 import * as S from './styles'
+import { colors, LoaderContainer } from '../../styles'
 
 type Props = {
   restaurants: Restaurant[]
@@ -25,6 +28,14 @@ const RestaurantsList = ({ restaurants }: Props) => {
       return description.slice(0, 245) + '...'
     }
     return description
+  }
+
+  if (restaurants.length === 0) {
+    return (
+      <LoaderContainer>
+        <BeatLoader color={colors.tertiaryColor} />
+      </LoaderContainer>
+    )
   }
 
   return (

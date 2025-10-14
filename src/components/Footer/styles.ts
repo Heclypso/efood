@@ -9,6 +9,7 @@ export const FooterContainer = styled.footer`
   align-items: center;
   justify-content: space-between;
   padding: 40px;
+  flex-shrink: 0;
 `
 
 export const ImageWrapper = styled.div`

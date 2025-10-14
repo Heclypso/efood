@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { BeatLoader } from 'react-spinners'
 
 import Button from '../../components/Button'
 
@@ -7,14 +8,15 @@ import closeIcon from '../../assets/icons/close.svg'
 
 import { parseToBrl } from '../../utils'
 
-import * as S from './styles'
-
 import {
   addToShoppingCart,
   toggleShowOverlay,
   toggleShowProductModal
 } from '../../store/reducers/shoppingCartReducer'
 import { RootReducer } from '../../store'
+
+import { colors, LoaderContainer } from '../../styles'
+import * as S from './styles'
 
 type Props = {
   products: Product[]
@@ -62,6 +64,14 @@ const ProductsList = ({ products }: Props) => {
       inline: 'center'
     })
   })
+
+  if (products.length === 0) {
+    return (
+      <LoaderContainer>
+        <BeatLoader color={colors.tertiaryColor} />
+      </LoaderContainer>
+    )
+  }
 
   return (
     <div className="container">

@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components'
+import styled, { createGlobalStyle } from 'styled-components'
 
 export const breakpoints = {
   mobile: '768px',
@@ -46,4 +46,17 @@ export const GlobalStyle = createGlobalStyle`
         width: 90vw;
       }
     }
+`
+
+export const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+`
+
+export const LoaderContainer = styled.div`
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `

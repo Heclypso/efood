@@ -13,6 +13,7 @@ export const HeaderContainer = styled.header<Props>`
   flex-direction: ${({ shape }) => (shape === 'home' ? 'column' : 'row')};
   align-items: center;
   justify-content: space-between;
+  flex-shrink: 0;
 
   @media (max-width: ${breakpoints.desktop}) {
     padding: ${({ shape }) => (shape === 'home' ? '40px 0' : '0 5vw')};
